@@ -4,326 +4,390 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electronix Support Bot</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, sans-serif;
-            background: #0a0e17;
-            color: #e2e8f0;
-            line-height: 1.6;
+            background: #0b0b0e;
+            color: #d4d4d8;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        .bg-glow {
-            position: fixed;
-            top: -200px; right: -200px;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(108,99,255,0.08), transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-        .bg-glow-2 {
-            position: fixed;
-            bottom: -200px; left: -200px;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, rgba(168,85,247,0.06), transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
+        .container { max-width: 860px; margin: 0 auto; padding: 0 28px; }
 
-        .container { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-        /* Hero */
+        /* --- Hero --- */
         .hero {
-            padding: 100px 0 60px;
+            padding: 140px 0 80px;
             text-align: center;
         }
-        .hero-badge {
-            display: inline-block;
-            background: rgba(108,99,255,0.12);
-            border: 1px solid rgba(108,99,255,0.25);
-            color: #a78bfa;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 24px;
+        .hero-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.15);
+            font-weight: 500;
+            margin-bottom: 32px;
         }
         .hero h1 {
-            font-size: 56px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #c4b5fd, #6c63ff, #a855f7);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 64px;
+            line-height: 1.1;
+            color: #fafafa;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+        .hero h1 em {
+            font-style: italic;
+            background: linear-gradient(135deg, #a78bfa, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.15;
-            margin-bottom: 20px;
         }
         .hero p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.5);
-            max-width: 600px;
-            margin: 0 auto 32px;
+            font-size: 16px;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
         }
-        .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .btn {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 14px 32px; border-radius: 12px;
-            font-weight: 600; font-size: 15px; text-decoration: none;
-            transition: all 0.2s;
+            padding: 14px 36px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #6c63ff, #a855f7);
-            color: #fff;
+            background: #fafafa;
+            color: #0b0b0e;
         }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,0.35); }
+        .btn-primary:hover { background: #a78bfa; color: #0b0b0e; }
         .btn-secondary {
-            background: rgba(255,255,255,0.06);
-            color: #e2e8f0;
             border: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.5);
         }
-        .btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        .btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: #fafafa; }
 
-        .hero-preview {
-            margin-top: 50px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.06);
-            overflow: hidden;
-            box-shadow: 0 20px 80px rgba(0,0,0,0.4);
-            background: #111827;
-        }
-        .hero-preview img, .hero-preview video {
-            width: 100%; display: block;
-        }
-        .hero-preview-placeholder {
-            padding: 60px 40px;
-            text-align: center;
-            color: rgba(255,255,255,0.2);
-            font-size: 14px;
-        }
-        .hero-preview-placeholder .mock-chat {
-            max-width: 500px; margin: 0 auto; text-align: left;
-        }
-        .mock-msg {
-            display: flex; margin: 12px 0; align-items: start;
-        }
-        .mock-msg.user { justify-content: flex-end; }
-        .mock-bubble {
-            padding: 12px 18px; border-radius: 16px;
-            font-size: 14px; max-width: 75%;
-        }
-        .mock-bubble.user {
-            background: linear-gradient(135deg, #6c63ff, #a855f7);
-            color: #fff; border-bottom-right-radius: 4px;
-        }
-        .mock-bubble.bot {
+        /* --- Divider --- */
+        .divider {
+            width: 40px; height: 1px;
             background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-bottom-left-radius: 4px;
+            margin: 0 auto 80px;
         }
 
-        /* Sections */
+        /* --- Sections --- */
         section { padding: 80px 0; }
-        section h2 {
-            font-size: 32px; font-weight: 700;
-            margin-bottom: 16px;
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.08);
+            font-weight: 600;
+            margin-bottom: 12px;
         }
-        section h2 span {
-            background: linear-gradient(135deg, #c4b5fd, #6c63ff);
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 36px;
+            color: #fafafa;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        section h2 .accent {
+            background: linear-gradient(135deg, #a78bfa, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        section .subtitle {
-            color: rgba(255,255,255,0.4);
-            font-size: 16px;
-            margin-bottom: 48px;
-            max-width: 560px;
+        .section-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.2);
+            font-weight: 300;
+            max-width: 480px;
+            margin-bottom: 56px;
+            line-height: 1.8;
         }
 
-        /* Tech Stack */
+        /* --- Mock chat --- */
+        .mockup-frame {
+            background: rgba(255,255,255,0.015);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 20px;
+            padding: 48px 40px;
+            margin-bottom: 80px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .mock-msg { display: flex; margin: 16px 0; align-items: start; }
+        .mock-msg.user { justify-content: flex-end; }
+        .mock-bubble {
+            padding: 12px 20px;
+            font-size: 13px;
+            line-height: 1.6;
+            max-width: 80%;
+            color: rgba(255,255,255,0.6);
+        }
+        .mock-bubble.user {
+            background: rgba(167,139,250,0.06);
+            border-radius: 16px 16px 4px 16px;
+            color: #fafafa;
+        }
+        .mock-bubble.bot {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px 16px 16px 4px;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        /* --- Tech grid --- */
         .tech-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
         }
         .tech-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 20px;
+            background: #0b0b0e;
+            padding: 28px 24px;
             text-align: center;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
-        .tech-card:hover {
-            border-color: rgba(108,99,255,0.3);
-            background: rgba(108,99,255,0.05);
-            transform: translateY(-2px);
+        .tech-card:hover { background: rgba(167,139,250,0.02); }
+        .tech-num {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.06);
+            font-weight: 500;
+            margin-bottom: 8px;
         }
-        .tech-card .icon { font-size: 32px; margin-bottom: 10px; }
-        .tech-card .name { font-weight: 600; font-size: 14px; }
-        .tech-card .desc { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 4px; }
-
-        /* Features */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-        .feature-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 14px;
-            padding: 28px;
-            transition: all 0.2s;
-        }
-        .feature-card:hover {
-            border-color: rgba(108,99,255,0.2);
-            transform: translateY(-2px);
-        }
-        .feature-card .icon { font-size: 28px; margin-bottom: 12px; }
-        .feature-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-        .feature-card p { font-size: 14px; color: rgba(255,255,255,0.45); }
-
-        /* How it works */
-        .steps { display: flex; flex-direction: column; gap: 24px; }
-        .step {
-            display: flex; gap: 20px;
-            align-items: start;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: 14px;
-            padding: 24px;
-        }
-        .step-num {
-            width: 40px; height: 40px; min-width: 40px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #6c63ff, #a855f7);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 16px; color: #fff;
-        }
-        .step-content h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-        .step-content p { font-size: 14px; color: rgba(255,255,255,0.45); }
-        .step-content code {
-            background: rgba(108,99,255,0.1);
-            color: #a78bfa;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        }
-
-        /* Code block */
-        .code-block {
-            background: #0f1117;
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 20px 24px;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 14px;
-            line-height: 1.7;
-            overflow-x: auto;
-            color: #a78bfa;
-            margin: 16px 0;
-        }
-        .code-block .comment { color: rgba(255,255,255,0.2); }
-        .code-block .cmd { color: #e2e8f0; }
-
-        /* Intents */
-        .intent-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-        .intent-tag {
-            background: rgba(108,99,255,0.08);
-            border: 1px solid rgba(108,99,255,0.15);
-            color: #a78bfa;
-            padding: 6px 16px;
-            border-radius: 20px;
+        .tech-card .name {
             font-size: 13px;
             font-weight: 500;
+            color: rgba(255,255,255,0.5);
         }
-        .intent-tag:nth-child(2n) {
-            background: rgba(168,85,247,0.08);
-            border-color: rgba(168,85,247,0.15);
-            color: #c084fc;
-        }
-        .intent-tag:nth-child(3n) {
-            background: rgba(59,130,246,0.08);
-            border-color: rgba(59,130,246,0.15);
-            color: #60a5fa;
+        .tech-card .desc {
+            font-size: 11px;
+            color: rgba(255,255,255,0.15);
+            font-weight: 300;
+            margin-top: 4px;
         }
 
-        /* Footer */
+        /* --- Features grid --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .feature-card {
+            background: #0b0b0e;
+            padding: 32px 28px;
+            transition: background 0.2s;
+        }
+        .feature-card:hover { background: rgba(167,139,250,0.015); }
+        .feature-icon { font-size: 20px; margin-bottom: 16px; opacity: 0.4; }
+        .feature-card h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+        .feature-card p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.15);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .feature-card code {
+            font-family: 'Inter', monospace;
+            font-size: 11px;
+            background: rgba(167,139,250,0.06);
+            padding: 1px 6px;
+            border-radius: 3px;
+            color: rgba(167,139,250,0.5);
+        }
+
+        /* --- Steps --- */
+        .steps { display: flex; flex-direction: column; gap: 2px; }
+        .step {
+            display: flex; gap: 28px; align-items: flex-start;
+            background: rgba(255,255,255,0.015);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 28px;
+            transition: background 0.2s;
+        }
+        .step:hover { background: rgba(167,139,250,0.015); }
+        .step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: rgba(167,139,250,0.15);
+            line-height: 1;
+            min-width: 40px;
+        }
+        .step-content h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 6px;
+        }
+        .step-content p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.15);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .step-content code {
+            font-family: 'Inter', monospace;
+            font-size: 12px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: rgba(167,139,250,0.4);
+        }
+
+        .code-block {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px 24px;
+            font-size: 13px;
+            font-family: 'Inter', monospace;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.2);
+            margin-top: 12px;
+        }
+        .code-block .cmd { color: rgba(255,255,255,0.35); }
+        .code-block .comment { color: rgba(255,255,255,0.06); font-style: italic; }
+
+        /* --- Intent pills --- */
+        .intent-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .intent-item {
+            background: #0b0b0e;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .intent-item .icon { font-size: 18px; margin-bottom: 8px; opacity: 0.3; }
+        .intent-item .label {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.35);
+        }
+        .intent-item .tag {
+            font-size: 10px;
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+            margin-top: 4px;
+        }
+
+        /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            color: rgba(255,255,255,0.25);
-            font-size: 14px;
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.02);
         }
-        footer a { color: #a78bfa; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        footer p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.06);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        footer a {
+            color: rgba(167,139,250,0.2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        footer a:hover { color: rgba(167,139,250,0.5); }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .hero h1 { font-size: 36px; }
-            .hero { padding: 60px 0 40px; }
-            section { padding: 50px 0; }
-            .step { flex-direction: column; }
+            .hero { padding: 100px 0 60px; }
+            section { padding: 60px 0; }
+            .tech-grid, .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .intent-grid { grid-template-columns: repeat(2, 1fr); }
+            .mockup-frame { padding: 28px 20px; }
+            .step { flex-direction: column; gap: 12px; }
+        }
+        @media (max-width: 480px) {
+            .tech-grid, .features-grid { grid-template-columns: 1fr; }
+            .intent-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
-<div class="bg-glow-2"></div>
-
 <!-- Hero -->
 <section class="hero">
     <div class="container">
-        <div class="hero-badge">🤖 AI-Powered Support</div>
-        <h1>Electronix<br>Customer Support Bot</h1>
-        <p>An intelligent chatbot that handles customer queries — product info, orders, refunds, password resets, and more — using NLP and machine learning.</p>
+        <div class="hero-label">Intelligent Customer Support</div>
+        <h1>Electronix<br><em>Support Bot</em></h1>
+        <p>An NLP-powered chatbot that understands product inquiries, order status, refunds, and more — delivering precise responses with minimal friction.</p>
         <div class="hero-actions">
-            <a class="btn btn-primary" href="#how-it-works">How It Works</a>
-            <a class="btn btn-secondary" href="https://github.com/yasirBYTE/chatbot_customerCare" target="_blank">View on GitHub</a>
+            <a class="btn btn-primary" href="#how-it-works">Explore</a>
+            <a class="btn btn-secondary" href="https://github.com/yasirBYTE/chatbot_customerCare" target="_blank">GitHub</a>
         </div>
 
-        <!-- Mockup -->
-        <div class="hero-preview">
-            <div class="hero-preview-placeholder">
-                <div class="mock-chat">
-                    <div class="mock-msg bot">
-                        <div class="mock-bubble bot">Hello! Welcome to Electronix Support. How can I help you today?</div>
-                    </div>
-                    <div class="mock-msg user">
-                        <div class="mock-bubble user">Where is my order?</div>
-                    </div>
-                    <div class="mock-msg bot">
-                        <div class="mock-bubble bot">I'd be happy to check your order status! Please provide your order number and I'll look up the latest tracking information for you.</div>
-                    </div>
-                    <div class="mock-msg user">
-                        <div class="mock-bubble user">I want a refund</div>
-                    </div>
-                    <div class="mock-msg bot">
-                        <div class="mock-bubble bot">I'm sorry to hear that! You can request a refund within 30 days of purchase. Items must be in original condition...</div>
-                    </div>
-                </div>
+        <div class="mockup-frame">
+            <div class="mock-msg bot">
+                <div class="mock-bubble bot">Hello. Welcome to Electronix Support. How may I assist you?</div>
+            </div>
+            <div class="mock-msg user">
+                <div class="mock-bubble user">Where is my order?</div>
+            </div>
+            <div class="mock-msg bot">
+                <div class="mock-bubble bot">I'd be happy to help. Please share your order number so I can provide the latest tracking details.</div>
+            </div>
+            <div class="mock-msg user">
+                <div class="mock-bubble user">I need a refund</div>
+            </div>
+            <div class="mock-msg bot">
+                <div class="mock-bubble bot">Certainly. Returns are accepted within 30 days of delivery. Could you confirm your order number?</div>
             </div>
         </div>
     </div>
 </section>
 
+<div class="container"><div class="divider"></div></div>
+
 <!-- Tech Stack -->
 <section>
     <div class="container">
-        <h2><span>Tech Stack</span></h2>
-        <p class="subtitle">Built with Python and modern ML libraries for a lightweight, production-ready support bot.</p>
+        <div class="section-label">Stack</div>
+        <h2>Built with <span class="accent">Python</span></h2>
+        <p class="section-desc">Lightweight ML architecture — each component chosen for precision and simplicity.</p>
         <div class="tech-grid">
-            <div class="tech-card"><div class="icon">🐍</div><div class="name">Python 3</div><div class="desc">Core language</div></div>
-            <div class="tech-card"><div class="icon">📊</div><div class="name">Streamlit</div><div class="desc">Web UI framework</div></div>
-            <div class="tech-card"><div class="icon">🔤</div><div class="name">NLTK</div><div class="desc">Tokenization & stopwords</div></div>
-            <div class="tech-card"><div class="icon">🧠</div><div class="name">Scikit-learn</div><div class="desc">TF-IDF & Logistic Regression</div></div>
-            <div class="tech-card"><div class="icon">🗂️</div><div class="name">Pandas</div><div class="desc">Analytics & data handling</div></div>
-            <div class="tech-card"><div class="icon">📦</div><div class="name">Joblib</div><div class="desc">Model serialization</div></div>
+            <div class="tech-card"><div class="tech-num">01</div><div class="name">Streamlit</div><div class="desc">Interface layer</div></div>
+            <div class="tech-card"><div class="tech-num">02</div><div class="name">NLTK</div><div class="desc">Text processing</div></div>
+            <div class="tech-card"><div class="tech-num">03</div><div class="name">Scikit-learn</div><div class="desc">TF-IDF &amp; Logistic Regression</div></div>
+            <div class="tech-card"><div class="tech-num">04</div><div class="name">Pandas</div><div class="desc">Analytics</div></div>
+            <div class="tech-card"><div class="tech-num">05</div><div class="name">Joblib</div><div class="desc">Model persistence</div></div>
+            <div class="tech-card"><div class="tech-num">06</div><div class="name">NLTK</div><div class="desc">Stopword filtering</div></div>
         </div>
     </div>
 </section>
@@ -331,57 +395,35 @@
 <!-- Features -->
 <section>
     <div class="container">
-        <h2><span>Features</span></h2>
-        <p class="subtitle">Everything you'd expect from a modern customer support experience.</p>
+        <div class="section-label">Capabilities</div>
+        <h2>Designed for <span class="accent">clarity</span></h2>
+        <p class="section-desc">Every feature serves a purpose — no clutter, no distraction.</p>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="icon">💬</div>
-                <h3>Chat Interface</h3>
-                <p>Clean, dark-themed Streamlit UI with smooth chat bubbles, quick-reply buttons, and full chat history with a clear button.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🎯</div>
-                <h3>Intent Classification</h3>
-                <p>TF-IDF vectorization + Logistic Regression classifies user queries into 8 supported intents with confidence scoring.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🧹</div>
-                <h3>NLP Preprocessing</h3>
-                <p>Lowercasing, punctuation removal, tokenization, and stopword filtering to clean and normalize user input before prediction.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">📈</div>
-                <h3>Analytics Dashboard</h3>
-                <p>Live sidebar tracking total conversations, most common query categories, and a category breakdown with progress bars.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🛡️</div>
-                <h3>Fallback Handling</h3>
-                <p>Low-confidence queries gracefully redirect users to contact support via email or phone — never leaves them stranded.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">⚡</div>
-                <h3>Auto-Training</h3>
-                <p>Model trains automatically on first run if no saved model exists. Add new intents to <code>intents.json</code> and restart.</p>
-            </div>
+            <div class="feature-card"><div class="feature-icon">⌨️</div><h3>Chat Interface</h3><p>Dark, minimal UI with chat history, quick-reply chips, and a clear conversation button.</p></div>
+            <div class="feature-card"><div class="feature-icon">🎯</div><h3>Intent Classification</h3><p>TF-IDF vectorization with Logistic Regression identifies user intent with a confidence score.</p></div>
+            <div class="feature-card"><div class="feature-icon">🧹</div><h3>NLP Pipeline</h3><p>Lowercasing, punctuation removal, tokenization, and stopword filtering for clean predictions.</p></div>
+            <div class="feature-card"><div class="feature-icon">📊</div><h3>Analytics</h3><p>Live conversation count, top query category, and category breakdown with progress bars.</p></div>
+            <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Fallback Handling</h3><p>Low-confidence queries are met with a polite redirect to human support channels.</p></div>
+            <div class="feature-card"><div class="feature-icon">⚡</div><h3>Auto-Training</h3><p>Model trains on first run. Edit <code>intents.json</code> to extend capabilities.</p></div>
         </div>
     </div>
 </section>
 
-<!-- Supported Intents -->
+<!-- Intents -->
 <section>
     <div class="container">
-        <h2><span>Supported Intents</span></h2>
-        <p class="subtitle">The chatbot understands 8 categories of customer queries out of the box.</p>
-        <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-            <div class="feature-card" style="text-align:center;"><div class="icon">👋</div><h3>Greeting</h3><p>Hi, Hello, Good morning</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">👋</div><h3>Goodbye</h3><p>Bye, See you later</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">📱</div><h3>Product Info</h3><p>Laptops, phones, prices, stock</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">💰</div><h3>Refund</h3><p>Returns, refund policy, exchanges</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">📦</div><h3>Order Status</h3><p>Tracking, shipping, delivery</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">🔑</div><h3>Password Reset</h3><p>Forgot password, login issues</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">📞</div><h3>Contact Support</h3><p>Talk to a human, phone/email</p></div>
-            <div class="feature-card" style="text-align:center;"><div class="icon">❓</div><h3>FAQ</h3><p>Store hours, shipping, payments</p></div>
+        <div class="section-label">Understanding</div>
+        <h2>Eight <span class="accent">intents</span></h2>
+        <p class="section-desc">Trained to recognize the full spectrum of customer support queries.</p>
+        <div class="intent-grid">
+            <div class="intent-item"><div class="icon">👋</div><div class="label">Greeting</div><div class="tag">Hi, Hello, Morning</div></div>
+            <div class="intent-item"><div class="icon">✌️</div><div class="label">Goodbye</div><div class="tag">Bye, See you</div></div>
+            <div class="intent-item"><div class="icon">📱</div><div class="label">Product Info</div><div class="tag">Laptops, Phones</div></div>
+            <div class="intent-item"><div class="icon">💰</div><div class="label">Refund</div><div class="tag">Returns, Policy</div></div>
+            <div class="intent-item"><div class="icon">📦</div><div class="label">Order Status</div><div class="tag">Tracking, Delivery</div></div>
+            <div class="intent-item"><div class="icon">🔑</div><div class="label">Password Reset</div><div class="tag">Forgot password</div></div>
+            <div class="intent-item"><div class="icon">📞</div><div class="label">Contact Support</div><div class="tag">Talk to human</div></div>
+            <div class="intent-item"><div class="icon">❓</div><div class="label">FAQ</div><div class="tag">Store, Shipping</div></div>
         </div>
     </div>
 </section>
@@ -389,35 +431,36 @@
 <!-- How It Works -->
 <section id="how-it-works">
     <div class="container">
-        <h2><span>How It Works</span></h2>
-        <p class="subtitle">The architecture behind the bot — from user input to intelligent response.</p>
+        <div class="section-label">Architecture</div>
+        <h2>From query to <span class="accent">response</span></h2>
+        <p class="section-desc">Four steps transform a customer message into an intelligent answer.</p>
         <div class="steps">
             <div class="step">
-                <div class="step-num">1</div>
+                <div class="step-num">01</div>
                 <div class="step-content">
-                    <h3>User sends a message</h3>
-                    <p>The user types a question in the Streamlit chat interface. The message is captured and passed to the bot engine.</p>
+                    <h3>Input</h3>
+                    <p>The customer types a message in the Streamlit interface. It is captured and forwarded to the bot engine for processing.</p>
                 </div>
             </div>
             <div class="step">
-                <div class="step-num">2</div>
+                <div class="step-num">02</div>
                 <div class="step-content">
-                    <h3>Text preprocessing</h3>
-                    <p>The raw text is lowercased, stripped of punctuation and special characters, tokenized into words, and filtered against NLTK's English stopword list.</p>
+                    <h3>Preprocessing</h3>
+                    <p>Text is lowercased, stripped of punctuation, tokenized, and filtered against NLTK's English stopword list — retaining only meaningful terms.</p>
                 </div>
             </div>
             <div class="step">
-                <div class="step-num">3</div>
+                <div class="step-num">03</div>
                 <div class="step-content">
-                    <h3>Intent prediction</h3>
-                    <p>The cleaned text is vectorized using a pre-trained TF-IDF model (unigrams + bigrams, max 5000 features). A Logistic Regression classifier predicts the intent with a confidence score.</p>
+                    <h3>Classification</h3>
+                    <p>A TF-IDF vectorizer converts the cleaned text into numerical features. Logistic Regression predicts the intent with a confidence score.</p>
                 </div>
             </div>
             <div class="step">
-                <div class="step-num">4</div>
+                <div class="step-num">04</div>
                 <div class="step-content">
-                    <h3>Response generation</h3>
-                    <p>If confidence is &ge; 0.4, a random response from the matched intent is returned. If confidence &lt; 0.4, a polite fallback is shown suggesting contact support.</p>
+                    <h3>Response</h3>
+                    <p>Confidence ≥ 0.4 returns a curated response. Below that, a graceful fallback directs the user to human support channels.</p>
                 </div>
             </div>
         </div>
@@ -427,67 +470,39 @@
 <!-- Run Locally -->
 <section>
     <div class="container">
-        <h2><span>Run Locally</span></h2>
-        <p class="subtitle">Get the chatbot running on your machine in under a minute.</p>
-
-        <div class="step" style="margin-bottom:16px;">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <h3>Clone the repo</h3>
-                <div class="code-block"><span class="cmd">git clone https://github.com/yasirBYTE/chatbot_customerCare.git</span><br><span class="cmd">cd chatbot_customerCare</span></div>
+        <div class="section-label">Setup</div>
+        <h2>Run <span class="accent">locally</span></h2>
+        <p class="section-desc">Three commands to launch your own instance.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                    <h3>Clone</h3>
+                    <div class="code-block"><span class="cmd">git clone https://github.com/yasirBYTE/chatbot_customerCare.git</span><br><span class="cmd">cd chatbot_customerCare</span></div>
+                </div>
             </div>
-        </div>
-
-        <div class="step" style="margin-bottom:16px;">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <h3>Install dependencies</h3>
-                <div class="code-block"><span class="cmd">pip install -r requirements.txt</span></div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                    <h3>Install</h3>
+                    <div class="code-block"><span class="cmd">pip install -r requirements.txt</span></div>
+                </div>
             </div>
-        </div>
-
-        <div class="step" style="margin-bottom:16px;">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <h3>Run the app</h3>
-                <div class="code-block"><span class="cmd">streamlit run app.py</span></div>
-                <p style="margin-top:8px;">Open <code>http://localhost:8501</code> in your browser. The model auto-trains on first launch.</p>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <h3>Customize intents (optional)</h3>
-                <p>Edit <code>intents.json</code> to add or modify training examples and responses. Delete <code>model.pkl</code> and restart to retrain.</p>
+            <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                    <h3>Launch</h3>
+                    <div class="code-block"><span class="cmd">streamlit run app.py</span></div>
+                    <p style="margin-top:8px; font-size:12px;">Opens at <code>localhost:8501</code>. Model trains automatically on first run.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Project Structure -->
-<section>
-    <div class="container">
-        <h2><span>Project Structure</span></h2>
-        <p class="subtitle">Clean, modular codebase designed for easy extension.</p>
-        <div class="code-block" style="font-size:13px;">
-<span class="comment"># 📁 chatbot_customerCare/</span><br>
-├── <span class="cmd">app.py</span>              <span class="comment"># Streamlit UI — chat interface, analytics, styling</span><br>
-├── <span class="cmd">chatbot.py</span>          <span class="comment"># Bot logic — intent prediction, response generation</span><br>
-├── <span class="cmd">train.py</span>            <span class="comment"># Training pipeline — TF-IDF + Logistic Regression</span><br>
-├── <span class="cmd">intents.json</span>        <span class="comment"># Training data — patterns & responses for 8 intents</span><br>
-├── <span class="cmd">requirements.txt</span>    <span class="comment"># Python dependencies</span><br>
-├── <span class="cmd">.gitignore</span><br>
-└── <span class="cmd">index.html</span>           <span class="comment"># This landing page</span>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
 <footer>
     <div class="container">
-        Built with ❤️ by <a href="https://github.com/yasirBYTE" target="_blank">yasirBYTE</a> &bull;
-        <a href="https://github.com/yasirBYTE/chatbot_customerCare" target="_blank">GitHub Repo</a>
+        <p>Crafted by <a href="https://github.com/yasirBYTE" target="_blank">yasirBYTE</a> · <a href="https://github.com/yasirBYTE/chatbot_customerCare" target="_blank">Repository</a></p>
     </div>
 </footer>
 
