@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pkl
+so.txt
+se.txt
+sout.txt
+serr.txt
+test_*.py
