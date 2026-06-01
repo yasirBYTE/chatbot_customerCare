@@ -1,0 +1,188 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hello",
+        "Hey",
+        "Good morning",
+        "Good evening",
+        "How are you",
+        "What's up",
+        "Hey there",
+        "Hi there",
+        "Greetings",
+        "Good to see you"
+      ],
+      "responses": [
+        "Hello! Welcome to Electronix Support. How can I help you today?",
+        "Hi there! Thanks for reaching out to Electronix. What can I do for you?",
+        "Hey! Great to see you. How can I assist you with your order or purchase?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye",
+        "Bye",
+        "See you later",
+        "Thanks, bye",
+        "Talk to you later",
+        "I'm done for now",
+        "That's all, thanks",
+        "Bye bye",
+        "Catch you later"
+      ],
+      "responses": [
+        "Thank you for reaching out! Have a great day! Feel free to come back anytime.",
+        "Goodbye! If you ever need help, we're just a message away.",
+        "Take care! Your Electronix support team is always here for you."
+      ]
+    },
+    {
+      "tag": "product_information",
+      "patterns": [
+        "Tell me about your products",
+        "What products do you have",
+        "Do you sell laptops",
+        "What phones are available",
+        "Tell me about the latest smartphone",
+        "What headphones do you carry",
+        "Do you have wireless earbuds",
+        "Product details",
+        "What is the price of iPhone",
+        "Is the MacBook Pro in stock",
+        "Can you tell me about the Samsung Galaxy",
+        "What are your best selling items",
+        "Do you have gaming laptops",
+        "What is the warranty on electronics",
+        "Are your products genuine",
+        "Tell me about the iPad"
+      ],
+      "responses": [
+        "We offer a wide range of electronics including laptops, smartphones, headphones, tablets, smartwatches, and accessories. All products come with a 1-year manufacturer warranty. What specific product are you interested in?",
+        "At Electronix, we stock top brands like Apple, Samsung, Sony, Dell, HP, and more. Our catalog includes the latest iPhones, Galaxy phones, MacBooks, gaming laptops, noise-cancelling headphones, and much more. Which category interests you?",
+        "We carry everything from budget-friendly electronics to premium devices. Our most popular items right now are the iPhone 16 Pro, Samsung Galaxy S25, MacBook Air M4, and Sony WH-1000XM6 headphones. Would you like more details on any of these?"
+      ]
+    },
+    {
+      "tag": "refund",
+      "patterns": [
+        "I want a refund",
+        "Can I get my money back",
+        "Refund request",
+        "How do I return an item",
+        "Return policy",
+        "I'm not satisfied with my purchase",
+        "Can I return my order",
+        "What is your refund policy",
+        "How long does a refund take",
+        "I received a damaged item",
+        "My product is defective",
+        "I want to exchange my item",
+        "Return window"
+      ],
+      "responses": [
+        "I'm sorry to hear that! You can request a refund within 30 days of purchase. Items must be in original condition with all accessories. Refunds are processed within 5-7 business days after we receive the return. Would you like me to start a return request?",
+        "Our return policy allows returns within 30 days of delivery. For defective items, we cover the return shipping. Would you like to initiate a refund or an exchange? Please have your order number ready.",
+        "I understand you want a refund. Please share your order number so I can look into it. Refunds typically take 5-7 business days to reflect in your account once the return is received."
+      ]
+    },
+    {
+      "tag": "order_status",
+      "patterns": [
+        "Where is my order",
+        "Order status",
+        "Track my order",
+        "Track my package",
+        "Package tracking",
+        "Has my order shipped",
+        "When will my order arrive",
+        "Delivery status",
+        "My order is late",
+        "What is my tracking number",
+        "Shipping update",
+        "Order number",
+        "Check order status",
+        "Is my order on its way",
+        "Delivery date",
+        "Where is my delivery",
+        "Where is my package"
+      ],
+      "responses": [
+        "I'd be happy to check your order status! Please provide your order number and I'll look up the latest tracking information for you.",
+        "Let me track that order for you! Could you share your order number? I can check the shipping status, estimated delivery date, and tracking details.",
+        "Orders typically ship within 1-2 business days. Standard delivery takes 3-5 business days, and express delivery is 1-2 business days. Please share your order number so I can give you an exact update."
+      ]
+    },
+    {
+      "tag": "password_reset",
+      "patterns": [
+        "I forgot my password",
+        "Reset my password",
+        "Can't log in",
+        "Change password",
+        "Forgot password",
+        "How do I reset my account password",
+        "My password isn't working",
+        "Reset my account",
+        "Lost password",
+        "Password help"
+      ],
+      "responses": [
+        "No problem! You can reset your password by clicking 'Forgot Password' on the login page. You'll receive a reset link via email. If you don't see it, check your spam folder. Need me to walk you through it step by step?",
+        "I can help with that! Visit our login page and click the 'Forgot Password' link. Enter your registered email, and we'll send you a password reset link. The link is valid for 24 hours. Would you like me to send a reset request on your behalf?",
+        "To reset your password, please provide the email address associated with your account. I'll send you a password reset link right away. Make sure to check your spam folder if you don't receive it within a few minutes."
+      ]
+    },
+    {
+      "tag": "contact_support",
+      "patterns": [
+        "Talk to a human",
+        "Contact support",
+        "Speak to a representative",
+        "Customer service number",
+        "I need to speak to someone",
+        "Live agent",
+        "Connect me to support",
+        "Email support",
+        "Phone number",
+        "Is there a support line",
+        "I want to talk to a person"
+      ],
+      "responses": [
+        "You can reach our support team at 1-800-ELECTRONIX (1-800-353-2876) Monday to Saturday, 9 AM to 9 PM EST. You can also email us at support@electronix.com. We typically respond within 24 hours.",
+        "I'll connect you to a human agent! In the meantime, you can also reach us at support@electronix.com or call 1-800-353-2876. Our team is available Mon-Sat, 9 AM - 9 PM EST.",
+        "For urgent matters, please call our support hotline at 1-800-353-2876. For non-urgent queries, you can email us at support@electronix.com and we'll get back to you within 24 hours."
+      ]
+    },
+    {
+      "tag": "faq",
+      "patterns": [
+        "What are your store hours",
+        "Do you have a physical store",
+        "What payment methods do you accept",
+        "Do you ship internationally",
+        "How much is shipping",
+        "What is your shipping policy",
+        "Can I change my shipping address",
+        "How do I cancel my order",
+        "Do you offer discounts",
+        "Is there a student discount",
+        "What is your price match policy",
+        "How do I create an account",
+        "How do I track my order",
+        "Can I buy gift cards",
+        "What is your warranty policy",
+        "Do you offer installation services"
+      ],
+      "responses": [
+        "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, and store gift cards. We also offer buy now, pay later options through Klarna.",
+        "We offer free standard shipping on orders over $50. Express shipping (1-2 business days) is available for $12.99. International shipping rates vary by destination — start at $19.99.",
+        "You can cancel an order within 1 hour of placing it. Once it's shipped, please initiate a return instead. Contact us immediately if you need to cancel so we can try to catch it before dispatch.",
+        "Yes! We have a student discount program offering 10% off on select items. We also have seasonal sales and bundle deals. Sign up for our newsletter to get notified about promotions!"
+      ]
+    }
+  ]
+}
