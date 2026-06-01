@@ -2,6 +2,8 @@
 
 An intelligent chatbot built with Python, Streamlit, and scikit-learn that simulates customer support interactions for an electronics store.
 
+> 🌐 **Project Landing Page** — [yasirbyte.github.io/chatbot_customerCare](https://yasirbyte.github.io/chatbot_customerCare/)
+
 ## Tech Stack
 
 - **Python 3** — Core language
